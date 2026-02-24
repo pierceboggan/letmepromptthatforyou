@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 type Protocol = "vscode" | "vscode-insiders";
 const DEFAULT_AGENT = "agent";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 
 
@@ -217,7 +218,7 @@ export default function HomePage() {
           <div className="brand-row">
             <img
               className={`brand-icon ${protocol === "vscode-insiders" ? "insiders" : ""}`}
-              src="/vscode-stable.png"
+              src={`${BASE_PATH}/vscode-stable.png`}
               alt=""
               aria-hidden="true"
               width={32}
@@ -236,9 +237,11 @@ export default function HomePage() {
           <>
             <div className="editor-panel">
               <div className="editor-frame">
-                <span className="line-numbers" aria-hidden="true">
-                  1
-                </span>
+                <div className="line-numbers" aria-hidden="true">
+                  {(prompt || " ").split("\n").map((_, i) => (
+                    <div key={i}>{i + 1}</div>
+                  ))}
+                </div>
 
                 <textarea
                   id="prompt-text"
@@ -274,7 +277,7 @@ export default function HomePage() {
                   >
                     <img
                       className="protocol-logo"
-                      src="/vscode-stable.png"
+                      src={`${BASE_PATH}/vscode-stable.png`}
                       alt=""
                       width={20}
                       height={20}
@@ -290,7 +293,7 @@ export default function HomePage() {
                   >
                     <img
                       className="protocol-logo insiders"
-                      src="/vscode-stable.png"
+                      src={`${BASE_PATH}/vscode-stable.png`}
                       alt=""
                       width={20}
                       height={20}
